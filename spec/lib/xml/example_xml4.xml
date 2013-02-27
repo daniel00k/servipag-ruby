@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='ISO8859-1' ?> 
+<Servipag> 
+	<FirmaServipag>FIRMASERVIPAG</FirmaServipag> 
+	<IdTrxServipag> IDTRXSERVIPAG </IdTrxServipag > 
+	<IdTxCliente>IDTXCLIENTE</IdTxCliente> 
+	<EstadoPago>ESTADOPAGO</EstadoPago> 
+	<Mensaje>MENSAJEP AGO</Mensaje>
+</Servipag>

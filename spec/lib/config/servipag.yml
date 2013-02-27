@@ -1,0 +1,7 @@
+test:
+  public_key_path:  "../rsa/public.key"
+  private_key_path:  "../rsa/private.key"
+  payment_channel_id: 123
+  servipag_url: "127.0.0.1:3000"
+  xml2_keys:  "IdTrxServipag IdTxCliente"
+  xml4_keys:  "IdTrxServipag IdTxCliente"
