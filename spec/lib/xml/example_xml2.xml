@@ -8,5 +8,5 @@
 	<FechaContable>      FECHACONT ABLE     </FechaContable> 
 	<CodigoIdentificador>CODIGOIDENTIFICADOR</CodigoIdentificador> 
 	<Boleta>             BOLETA             </Boleta>
-	<Monto>              MONTO              </Monto> 
+	<Monto>              3000              </Monto> 
 </Servipag>

@@ -28,17 +28,17 @@ module GeneratorHelper
 				"<Servipag>
 					<Header>
 						<FirmaEPS>#{attrs[:eps].downcase}</FirmaEPS>
-						<CodigoCanalPago>#{attrs[:payment_channel_id].downcase}</CodigoCanalPago>
-						<IdTxCliente>#{attrs[:id_tx_cliente].downcase}</IdTxCliente>
+						<CodigoCanalPago>#{attrs[:payment_channel_id]}</CodigoCanalPago>
+						<IdTxCliente>#{attrs[:id_tx_client].downcase}</IdTxCliente>
 						<FechaPago>#{attrs[:payment_date].downcase}</FechaPago>
-						<MontoTotalDeuda>#{attrs[:total_amount].downcase}</MontoTotalDeuda>
-						<NumeroBoletas>#{attrs[:bill_counter].downcase}</NumeroBoletas>
+						<MontoTotalDeuda>#{attrs[:total_amount]}</MontoTotalDeuda>
+						<NumeroBoletas>#{attrs[:bill_counter]}</NumeroBoletas>
 					</Header> 
 					<Documentos>
-						<IdSubTrx>#{attrs[:id_sub_trx].downcase}</IdSubTrx>
-						<CodigoIdentificador>#{attrs[:identifier_code].downcase}</CodigoIdentificador>
-						<Boleta>#{attrs[:bill].downcase}</Boleta>
-						<Monto>#{attrs[:amount].downcase}</Monto>
+						<IdSubTrx>#{attrs[:id_sub_trx]}</IdSubTrx>
+						<CodigoIdentificador>#{attrs[:identifier_code]}</CodigoIdentificador>
+						<Boleta>#{attrs[:bill]}</Boleta>
+						<Monto>#{attrs[:amount]}</Monto>
 						<FechaVencimiento>#{attrs[:expiration_date]}</FechaVencimiento>
 					</Documentos>
 				</Servipag>"

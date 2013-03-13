@@ -10,4 +10,7 @@ describe Validator::Xml2 do
 		@payment_confirmation  =  Servipag::ApiResponse::PaymentConfirmation.new @xml
 		Validator::Xml2.validate_signature(@payment_confirmation, @private_key_path).should be_true
 	end
+	it "should find the keys" do 
+		"......."
+	end
 end

@@ -12,7 +12,11 @@ class Parser
 			CodigoIdentificador 
 			Boleta 
 			Monto).each do |tag|
-				hash[Validator::Xml2.translate_from_xml(tag).to_s] = doc.xpath("//#{tag}").first.children.first.content.strip
+				if Validator.is_a_number?(doc.xpath("//#{tag}").first.children.first.content.strip)
+					hash[Validator::Xml2.translate_from_xml(tag).to_s] =  doc.xpath("//#{tag}").first.children.first.content.strip.to_i
+				else
+					hash[Validator::Xml2.translate_from_xml(tag).to_s] =  doc.xpath("//#{tag}").first.children.first.content.strip
+				end
 			end
 		hash
 	end

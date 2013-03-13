@@ -6,6 +6,7 @@ require 'servipag_configuration'
 require 'generator_helper'
 require 'crypt_decrypt'
 require 'parser'
+require 'rest_client'
 
 module Servipag
 
@@ -38,7 +39,7 @@ module Servipag
         @bill               =  GeneratorHelper::TokenGenerator.generate_numeric_random_token
         @amount             =  @total_amount
         @expiration_date    =  GeneratorHelper::DateGenerator.generate_payment_date  
-        @eps                =  CryptDecrypt::Encrypt.encrypt_using_public_key @@settings['public_key_path'], concatenated_strings
+        @eps                =  CryptDecrypt::Encrypt.encrypt_using_public_key(@@settings['public_key_path'], concatenated_strings).gsub("\n",'')
       end
 
       def create_request
@@ -48,18 +49,17 @@ module Servipag
       end
 
       def concatenated_strings
-        %w( @payment_channel_id 
-            @id_tx_client
-            @payment_date
-            @total_amount
-            @bill_counter
-            @id_sub_trx
-            @identifier_code
-            @bill_counter
-            @amount
-            @expiration_date
-            @eps
-           ).join('')
+        [ @payment_channel_id,
+            @id_tx_client,
+            @payment_date,
+            @total_amount,
+            @bill_counter,
+            @id_sub_trx,
+            @identifier_code,
+            @bill_counter,
+            @amount,
+            @expiration_date,
+           ].join('')
       end
 
       def attrs_hash
@@ -88,7 +88,7 @@ module Servipag
         @message     = attrs[:message]
       end
 
-      def get_xml
+      def write_xml
         GeneratorHelper::XML::Xml3.generate_xml return_code: @return_code, message: @message
       end
 
@@ -109,8 +109,8 @@ module Servipag
         attrs.each{|k,v| send("#{k}=", v)}
       end
 
-      def is_xml2_valid?
-        Validator::Xml2.validate_signature self, @@settings['xml2_keys'], @@settings['private_key_path']
+      def is_xml2_valid?      
+        Validator::Xml2.validate_signature self, settings['private_key_path']
       end
 
       def show_response_when_positive_status message
@@ -130,11 +130,11 @@ module Servipag
       def initialize xml
         super unless defined? @@settings
         attrs = Parser.parse_xml4 xml
-        attrs.each{|k,v| send("@k", v) }
+        attrs.each{|k,v| send("#{k}=", v) }
       end
   		
       def is_xml4_valid?
-        Validator::Xml4.validate_signature self, settings['xml4_keys'], settings['private_key_path']
+        Validator::Xml4.validate_signature self, settings['private_key_path']
       end
 
   	end
