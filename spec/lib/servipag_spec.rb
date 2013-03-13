@@ -35,7 +35,7 @@ describe Servipag do
 			@tb.class.to_s.should eq(Servipag::ApiRequests::TransactionBegginer.to_s)
 		end
 
-		it "should send a xml archive to a servipar server" do 
+		it "should send a xml archive to a servipag server" do 
 			@conf  =  ServipagConfiguration::Configuration.new("test", File.expand_path("..",__FILE__))
 			@tb    =  Servipag::ApiRequests::TransactionBegginer.new total_amount: 3000
 		end
