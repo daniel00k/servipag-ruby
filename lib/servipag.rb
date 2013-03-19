@@ -47,6 +47,10 @@ module Servipag
                         GeneratorHelper::XML::Xml1.generate_xml(attrs_hash), 
                         content_type: :xml)
       end
+      
+      def servipag_url
+        settings['servipag_url']
+      end
 
       def concatenated_strings
         [ @payment_channel_id,
