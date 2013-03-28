@@ -39,7 +39,7 @@ module Servipag
         @bill               =  GeneratorHelper::TokenGenerator.generate_numeric_random_token
         @amount             =  @total_amount
         @expiration_date    =  GeneratorHelper::DateGenerator.generate_payment_date  
-        @eps                =  CryptDecrypt::Encrypt.encrypt_using_public_key(@@settings['public_key_path'], concatenated_strings).gsub("\n",'')
+        @eps                =  CryptDecrypt::Encrypt.encrypt_using_private_key(@@settings['private_key_path'], concatenated_strings).gsub("\n",'')
       end
 
       def create_request
@@ -114,7 +114,7 @@ module Servipag
       end
 
       def is_xml2_valid?      
-        Validator::Xml2.validate_signature self, settings['private_key_path']
+        Validator::Xml2.validate_signature self, settings['public_key_path']
       end
 
       def show_response_when_positive_status message

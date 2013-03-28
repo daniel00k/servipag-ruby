@@ -19,7 +19,7 @@ module Validator
 	end
 	class Xml2
 		def self.validate_signature payment_confirmation, key_path
-			payment_confirmation.settings['xml2_keys'].split(' ').map{|k| payment_confirmation.send(self.translate_from_xml(k))}.join() ==  CryptDecrypt::Decrypt.decrypt_using_private_key(key_path, payment_confirmation.servipag_signature)
+			CryptDecrypt::Decrypt.decrypt_using_public_key(key_path, payment_confirmation.servipag_signature, payment_confirmation.settings['xml2_keys'].split(' ').map{|k| payment_confirmation.send(self.translate_from_xml(k))}.join())
 		end
 
 		def self.translate_from_xml tag
@@ -40,7 +40,7 @@ module Validator
 	end
 	class Xml4
 		def self.validate_signature complete_transaction, key_path
-			complete_transaction.settings['xml4_keys'].split(' ').map{|k| complete_transaction.send(Validator::Xml2.translate_from_xml(k))}.join() ==  CryptDecrypt::Decrypt.decrypt_using_private_key( key_path, complete_transaction.servipag_signature)
+			 CryptDecrypt::Decrypt.decrypt_using_public_key( key_path, complete_transaction.servipag_signature, complete_transaction.settings['xml4_keys'].split(' ').map{|k| complete_transaction.send(Validator::Xml2.translate_from_xml(k))}.join())
 		end
 	end
 end

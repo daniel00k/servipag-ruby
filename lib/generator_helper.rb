@@ -27,7 +27,7 @@ module GeneratorHelper
 			def self.generate_xml attrs={}
 				"<Servipag>
 					<Header>
-						<FirmaEPS>#{attrs[:eps].downcase}</FirmaEPS>
+						<FirmaEPS>#{attrs[:eps].gsub!("\n",'').gsub!("\t",'').downcase}</FirmaEPS>
 						<CodigoCanalPago>#{attrs[:payment_channel_id]}</CodigoCanalPago>
 						<IdTxCliente>#{attrs[:id_tx_client].downcase}</IdTxCliente>
 						<FechaPago>#{attrs[:payment_date].downcase}</FechaPago>
