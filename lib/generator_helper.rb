@@ -50,7 +50,7 @@ module GeneratorHelper
 				<Servipag>
 					<CodigoRetorno>#{attrs[:return_code]}</CodigoRetorno>
 					<MensajeRetorno>#{attrs[:message]}</MensajeRetorno>
-				</Servipag>".gsub!("\n",'').gsub!("\t",'')
+				</Servipag>".gsub("\n",'').gsub("\t",'')
 			end
 		end
 	end
