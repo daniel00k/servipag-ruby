@@ -41,7 +41,7 @@ module GeneratorHelper
 						<Monto>#{attrs[:amount]}</Monto>
 						<FechaVencimiento>#{attrs[:expiration_date]}</FechaVencimiento>
 					</Documentos>
-				</Servipag>"
+				</Servipag>".gsub!("\n",'').gsub!("\t",'')
 			end
 		end
 		class Xml3
@@ -50,7 +50,7 @@ module GeneratorHelper
 				<Servipag>
 					<CodigoRetorno>#{attrs[:return_code]}</CodigoRetorno>
 					<MensajeRetorno>#{attrs[:message]}</MensajeRetorno>
-				</Servipag>"
+				</Servipag>".gsub!("\n",'').gsub!("\t",'')
 			end
 		end
 	end

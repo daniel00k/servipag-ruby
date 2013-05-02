@@ -60,7 +60,7 @@ module Servipag
             @bill_counter,
             @id_sub_trx,
             @identifier_code,
-            @bill_counter,
+            @bill,
             @amount,
             @expiration_date,
            ].join('')
