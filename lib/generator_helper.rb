@@ -25,32 +25,37 @@ module GeneratorHelper
 	module XML
 		class Xml1
 			def self.generate_xml attrs={}
-				"<Servipag>
-					<Header>
-						<FirmaEPS>#{attrs[:eps].gsub("\n",'').gsub("\t",'').downcase}</FirmaEPS>
-						<CodigoCanalPago>#{attrs[:payment_channel_id]}</CodigoCanalPago>
-						<IdTxCliente>#{attrs[:id_tx_client].downcase}</IdTxCliente>
-						<FechaPago>#{attrs[:payment_date].downcase}</FechaPago>
-						<MontoTotalDeuda>#{attrs[:total_amount]}</MontoTotalDeuda>
-						<NumeroBoletas>#{attrs[:bill_counter]}</NumeroBoletas>
-					</Header> 
-					<Documentos>
-						<IdSubTrx>#{attrs[:id_sub_trx]}</IdSubTrx>
-						<CodigoIdentificador>#{attrs[:identifier_code]}</CodigoIdentificador>
-						<Boleta>#{attrs[:bill]}</Boleta>
-						<Monto>#{attrs[:amount]}</Monto>
-						<FechaVencimiento>#{attrs[:expiration_date]}</FechaVencimiento>
-					</Documentos>
-				</Servipag>".gsub("\n",'').gsub("\t",'')
+				builder = Nokogiri::XML::Builder.new do |xml|
+					xml.Servipag {
+						xml.Header {
+							xml.FirmaEPS        attrs[:eps].gsub("\n",'').gsub("\t",'').downcase
+							xml.CodigoCanalPago attrs[:payment_channel_id]
+							xml.IdTxCliente     attrs[:id_tx_client].downcase
+							xml.FechaPago       attrs[:payment_date].downcase
+							xml.MontoTotalDeuda attrs[:total_amount]
+							xml.NumeroBoletas   attrs[:bill_counter]
+						}
+						xml.Documentos{
+							xml.IdSubTrx             attrs[:id_sub_trx]
+							xml.CodigoIdentificador  attrs[:identifier_code]
+							xml.Boleta               attrs[:bill]
+							xml.Monto                attrs[:amount]
+							xml.FechaVencimiento     attrs[:expiration_date]
+						}
+					}
+				end
+				builder.to_xml
 			end
 		end
 		class Xml3
 			def self.generate_xml attrs={}
-				"<?xml version='1.0' encoding='ISO8859-1'?>
-				<Servipag>
-					<CodigoRetorno>#{attrs[:return_code]}</CodigoRetorno>
-					<MensajeRetorno>#{attrs[:message]}</MensajeRetorno>
-				</Servipag>".gsub("\n",'').gsub("\t",'')
+				builder = Nokogiri::XML::Builder.new do |xml|
+					xml.Servipag {
+							xml.CodigoRetorno   attrs[:return_code]
+							xml.MensajeRetorno  attrs[:message]
+					}
+				end
+				builder.to_xml
 			end
 		end
 	end
