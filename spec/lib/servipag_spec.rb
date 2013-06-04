@@ -23,7 +23,7 @@ describe Servipag do
 	describe ServipagConfiguration do
 		it "should read the yaml file like a boss" do 
 			@conf  =  ServipagConfiguration::Configuration.new("test", File.expand_path("..",__FILE__))
-			@conf.settings['payment_channel_id'].should eq(123)
+			@conf.settings['payment_channel_id'].should eq(544)
 			@conf.settings['private_key_path'].should eq("/Users/danielaguilar/Documents/acid/servipag/servipag/spec/lib/rsa/private.key")
 			@conf.settings['public_key_path'].should eq("/Users/danielaguilar/Documents/acid/servipag/servipag/spec/lib/rsa/public.key")
 		end
@@ -37,7 +37,15 @@ describe Servipag do
 
 		it "should send a xml archive to a servipag server" do 
 			@conf  =  ServipagConfiguration::Configuration.new("test", File.expand_path("..",__FILE__))
-			@tb    =  Servipag::ApiRequests::TransactionBegginer.new total_amount: 3000
+			@tb    =  Servipag::ApiRequests::TransactionBegginer.new total_amount: 1,
+																	 id_tx_client: '1370291429uanwxinofge',
+																	 payment_date: '20130603',
+																	 identifier_code: '1370291429',
+																	 bill: '13702914291467263938',
+																	 expiration_date: '20130603'
+			@tb.concatenated_strings.should eq('5441370291429uanwxinofge20130603111137029142913702914291467263938120130603')
+			@tb.eps.should eq('YKKXRAZ1jlbE4wXvyEs6T+0LlL/YsK3kT+a/TJHVCQgwScJV6Wk0nk1FBlQw4HyuaWkNs6wL7qY09bVYc553C2oVggMKxV2uQ5LRr8lzDAHYwFtWDXSgXjxQGF8JRX5IoCimVNtqQsK7SaNDMS5Bf8O6DLurtCU2KsjeKveDp1A=')
+			raise "#{@tb.get_xml}"
 		end
 
 		describe Servipag::ApiResponse::PaymentConfirmation do
@@ -61,7 +69,7 @@ describe Servipag do
 		describe Servipag::ApiRequests::PurchaseConfirmation do
 			it "should write the xml3 response" do
 				@xml = Servipag::ApiRequests::PurchaseConfirmation.new(message: "Bien brother", return_code: true).write_xml
-				@xml.to_s.gsub("\n",'').gsub("\t",'').should eq("<?xml version='1.0' encoding='ISO8859-1'?><Servipag><CodigoRetorno>true</CodigoRetorno><MensajeRetorno>Bien brother</MensajeRetorno></Servipag>".to_s)
+				@xml.to_s.gsub("\n",'').gsub("\t",'').should eq("<?xml version=\"1.0\"?><Servipag>  <CodigoRetorno>true</CodigoRetorno>  <MensajeRetorno>Bien brother</MensajeRetorno></Servipag>".to_s)
 			end
 		end
 	end

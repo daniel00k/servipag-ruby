@@ -28,7 +28,7 @@ module GeneratorHelper
 				builder = Nokogiri::XML::Builder.new do |xml|
 					xml.Servipag {
 						xml.Header {
-							xml.FirmaEPS        attrs[:eps].gsub("\n",'').gsub("\t",'').downcase
+							xml.FirmaEPS        attrs[:eps].gsub("\n",'').gsub("\t",'')
 							xml.CodigoCanalPago attrs[:payment_channel_id]
 							xml.IdTxCliente     attrs[:id_tx_client].downcase
 							xml.FechaPago       attrs[:payment_date].downcase
