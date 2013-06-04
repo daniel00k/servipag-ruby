@@ -45,7 +45,6 @@ describe Servipag do
 																	 expiration_date: '20130603'
 			@tb.concatenated_strings.should eq('5441370291429uanwxinofge20130603111137029142913702914291467263938120130603')
 			@tb.eps.should eq('YKKXRAZ1jlbE4wXvyEs6T+0LlL/YsK3kT+a/TJHVCQgwScJV6Wk0nk1FBlQw4HyuaWkNs6wL7qY09bVYc553C2oVggMKxV2uQ5LRr8lzDAHYwFtWDXSgXjxQGF8JRX5IoCimVNtqQsK7SaNDMS5Bf8O6DLurtCU2KsjeKveDp1A=')
-			raise "#{@tb.get_xml}"
 		end
 
 		describe Servipag::ApiResponse::PaymentConfirmation do

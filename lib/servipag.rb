@@ -30,7 +30,7 @@ module Servipag
   		def initialize(attrs={})
         super unless defined? @@settings
         @payment_channel_id =  @@settings['payment_channel_id']
-        @id_tx_client       =  attrs[:id_tx_client] || GeneratorHelper::TokenGenerator.generate_token
+        @id_tx_client       =  attrs[:id_tx_client] || GeneratorHelper::TokenGenerator.generate_token.downcase
         @payment_date       =  attrs[:payment_date] || GeneratorHelper::DateGenerator.generate_payment_date
         @total_amount       =  Validator.validate_total_amount_length(attrs[:total_amount])
         @bill_counter       =  attrs[:bill_counter].to_i > 0 ? attrs[:bill_counter].to_i : 1
@@ -38,7 +38,7 @@ module Servipag
         @identifier_code    =  attrs[:identifier_code]  || GeneratorHelper::TokenGenerator.generate_numeric_token
         @bill               =  attrs[:bill]             || GeneratorHelper::TokenGenerator.generate_numeric_random_token
         @amount             =  @total_amount
-        @expiration_date    =  attrs[:expiration_date]  || GeneratorHelper::DateGenerator.generate_payment_date  
+        @expiration_date    =  attrs[:expiration_date]  || GeneratorHelper::DateGenerator.generate_payment_date
         @eps                =  CryptDecrypt::Encrypt.encrypt_using_private_key(@@settings['private_key_path'], concatenated_strings).gsub("\n",'')
       end
 

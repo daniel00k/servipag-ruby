@@ -30,7 +30,7 @@ module GeneratorHelper
 						xml.Header {
 							xml.FirmaEPS        attrs[:eps].gsub("\n",'').gsub("\t",'')
 							xml.CodigoCanalPago attrs[:payment_channel_id]
-							xml.IdTxCliente     attrs[:id_tx_client].downcase
+							xml.IdTxCliente     attrs[:id_tx_client]
 							xml.FechaPago       attrs[:payment_date].downcase
 							xml.MontoTotalDeuda attrs[:total_amount]
 							xml.NumeroBoletas   attrs[:bill_counter]
