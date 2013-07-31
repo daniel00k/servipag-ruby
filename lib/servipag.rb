@@ -136,7 +136,7 @@ module Servipag
       end
   		
       def is_xml4_valid?
-        Validator::Xml4.validate_signature self, settings['private_key_path']
+        Validator::Xml4.validate_signature self, settings['public_key_path']
       end
 
   	end
